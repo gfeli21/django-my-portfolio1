@@ -1,14 +1,23 @@
-{% extends 'portfolio/base.html' %} {% block content %} Hello blog
+{% extends "portfolio/base.html" %}
 
-<!-- This helps keep a word 'ex: blogs' properly pluralized: {{ blogs.count|pluralize }} -->
-<h2>There's {{ blogs.count }} blog{{ blogs.count|pluralize }} written!</h2>
+{% load static %}
+
+{% block content %}
+
+<h1 id="blogtitle" class="font-weight-bold text-center">Blog</h1>
+
+<h3 class="text-center mb-5">There's {{ blogs.count }} blog{{ blogs.count|pluralize }} written!</h3>
 
 {% for blog in blogs %}
+<div class="row justify-content-center my-3">
+  <div class="col-md-10">
+    <a href="{% url 'blog:detail' blog.id %}">
+      <h2>{{ blog.title }}</h2>
+    </a>
+    <h5 class="text-muted">{{ blog.date|date:'M d Y'|upper }}</h5>
+    <h4>{{ blog.description|striptags|truncatechars:100 }}</h4>
+  </div>
+</div>
+{% endfor %}
 
-<a href="{% url 'blog:detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
-<h5>{{ blog.date|date:'M d Y'|upper }}</h5>
-<!-- Use 'striptags' to hide any html tags in a blog post (or 'safe' to add boldness/new line for tag) -->
-<!-- Use 'truncatechars:' to shorten display of characters in a blog post -->
-<p>{{ blog.description|striptags|truncatechars:200 }}</p>
-
-{% endfor %} {% endblock %}
+{% endblock %}
