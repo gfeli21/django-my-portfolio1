@@ -117,7 +117,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/' # helps specify the static url
+STATIC_URL = 'static/'  # helps specify the static url
 STATIC_ROOT = BASE_DIR / "static"  # helps specify the static root
 
 
@@ -128,3 +128,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'  # helps specify the media url
 MEDIA_ROOT = BASE_DIR / "media"  # helps specify the media root
+
+try:
+    from .local_settings import *
+except ImportError:
+    print("Looks like no local file. You must be on production ('live server')!")
